@@ -15,11 +15,6 @@
 
 $ErrorActionPreference = 'Stop'
 
-# For some reason try/catch wrapping only ensures
-# that none of this script runs at all
-# https://tickets.puppetlabs.com/browse/MODULES-2634
-#try {
-
 # variables
 $url = '<%= @download_url %>'
 $unzipMethod = '<%= @unzip_type %>'
@@ -37,7 +32,6 @@ $chocErrorLog = Join-Path $tempDir "chocError.log"
 # position is not what FileStream expected. Do not use a handle
 # simultaneously in one FileStream and in Win32 code or another
 # FileStream."
-
 
 # This only works with the ConsoleHost (PowerShell InternalHost)
 function Fix-PowerShellOutputRedirectionBug {
@@ -57,8 +51,6 @@ function Fix-PowerShellOutputRedirectionBug {
   } catch {
     Write-Output "Unable to apply redirection fix. Error: $_"
   }
-
-
 }
 
 Fix-PowerShellOutputRedirectionBug
@@ -186,14 +178,7 @@ Copy-Item "$file" "$nupkg" -Force -ErrorAction SilentlyContinue
 if ($env:chocolateyProxyLocation -ne $null) {
   $chocoExeLocation = Join-Path $chocoBinPath "choco.exe"
   & $chocoExeLocation config set proxy $env:chocolateyProxyLocation
-  [System.Environment]::Exit(0)
 }
 
 Write-Output
 
-#}
-#catch
-#{
-#  Write-Host "$($_.Exception.Message)"
-#  exit 1
-#}
