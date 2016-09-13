@@ -185,7 +185,7 @@ Copy-Item "$file" "$nupkg" -Force -ErrorAction SilentlyContinue
 
 if ($env:chocolateyProxyLocation -ne $null) {
   $chocoExeLocation = Join-Path $chocoBinPath "choco.exe"
-  & $chocoExeLocation config set proxy $env:chocolatelyProxyLocation
+  & $chocoExeLocation config set proxy $env:chocolateyProxyLocation
 }
 
 Write-Output
